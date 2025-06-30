@@ -82,6 +82,14 @@ function createEnvironment {
         conda activate base
         $env:MENUINST_SKIP = "1" # skip spyder menu installation to avoid errors (stejne nefunguje)
         $env:PIP_VERBOSE = "0" # taky nefunguje
+        try { # try classic first, sometimes command not exist, then fallback to normal command, which should trigger classic too on 4.11
+            conda env create -f $envFile --solver classic -ErrorAction Stop
+            } 
+        catch {
+            Write-Host "Classic solver failed, trying without --solver..."
+            conda env create -f $envFile
+            }
+
         conda env create -f $envFile --solver classic # use old solver conda 4.11 for backwards compatibility
 
         # ✅ Conda 4.11
