@@ -1,0 +1,11 @@
+.venv*/
+.mypy*/
+.databricks/
+.vscode/
+build/
+dist/
+__pycache__/
+*.egg-info
+config_files
+
+
